@@ -1,0 +1,147 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  width: 100%;
+  height: 100%;
+  font-family: 'Arial', sans-serif;
+  color: #ffffff;
+  overflow: auto; /* Allow page scrolling */
+}
+
+/* 3D Background Canvas */
+#background {
+  position: fixed; /* Fixed positioning to stay in the background */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Ensure the canvas stays behind the content */
+}
+
+/* Resume Content Container */
+.content {
+  position: relative;
+  padding: 50px;
+  z-index: 1;
+  max-width: 900px;
+  margin: 50px auto;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 10px;
+}
+
+/* Header Styling */
+header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+header h1 {
+  font-size: 3em;
+  margin-bottom: 10px;
+}
+
+header p {
+  font-size: 1.2em;
+  color: #ccc;
+}
+
+.contact-info {
+  margin-top: 10px;
+}
+
+.contact-info p {
+  font-size: 1em;
+  color: #ddd;
+}
+
+.contact-info a {
+  color: #1e90ff;
+  text-decoration: none;
+}
+
+.contact-info a:hover {
+  text-decoration: underline;
+}
+
+/* Section Styling */
+section {
+  margin-bottom: 30px;
+}
+
+section h2 {
+  border-bottom: 2px solid #fff;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  font-size: 2em;
+}
+
+section h3 {
+  font-size: 1.5em;
+  margin-bottom: 5px;
+  color: #00ffff; /* Highlighted job titles and project names */
+}
+
+.duration, .period {
+  font-size: 0.9em;
+  color: #ccc;
+  margin-bottom: 10px;
+}
+
+ul {
+  list-style-type: disc;
+  margin-left: 20px;
+  margin-top: 10px;
+}
+
+li {
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+
+a {
+  color: #1e90ff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Scrollbar Styling (Optional) */
+.content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.content::-webkit-scrollbar-thumb {
+  background-color: rgba(30, 144, 255, 0.7);
+  border-radius: 4px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .content {
+    padding: 20px;
+    margin: 20px auto; /* Adjust margin for smaller screens */
+  }
+
+  header h1 {
+    font-size: 2em;
+  }
+
+  section h2 {
+    font-size: 1.5em;
+  }
+
+  section h3 {
+    font-size: 1.3em;
+  }
+}

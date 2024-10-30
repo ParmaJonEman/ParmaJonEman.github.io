@@ -1,5 +1,3 @@
-
-
 // Select the canvas
 const canvas = document.getElementById('background');
 const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
@@ -53,13 +51,6 @@ const particlesMaterial = new THREE.PointsMaterial({
 const particles = new THREE.Points(particlesGeometry, particlesMaterial);
 scene.add(particles);
 
-// Variables to track mouse state
-let isMouseDown = false;
-const mouse = {
-  x: 0,
-  y: 0
-};
-
 // Rotation speed variable
 let rotationSpeed = 0.001; // Initial rotation speed
 
@@ -68,67 +59,54 @@ const MIN_SPEED = 0.001;
 const MAX_SPEED = 0.5;
 const SPEED_STEP = 0.005;
 
-// Event listeners to track mouse button state
-window.addEventListener('mousedown', (event) => {
-  if (event.button === 0) { // Left mouse button
-    isMouseDown = true;
-  }
-});
+// Rotation direction variable
+let rotationDirection = 0; // -1 for left, 1 for right
 
-window.addEventListener('mouseup', (event) => {
-  if (event.button === 0) { // Left mouse button
-    isMouseDown = false;
-  }
-});
-
-// Event listener to track mouse movement
-window.addEventListener('mousemove', (event) => {
-  if (isMouseDown) { // Only update mouse position if left button is pressed
-    // Normalize mouse coordinates between -1 and 1
-    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-  }
-});
+// Rotation speed acceleration
+let targetRotationSpeed = rotationSpeed; // Desired rotation speed
+const ACCELERATION = 0.0005; // Adjust for desired smoothness
 
 // Event listener for keyboard controls
 window.addEventListener('keydown', (event) => {
-  switch(event.key) {
-    case 'ArrowUp':
-      // Increase rotation speed
-      rotationSpeed += SPEED_STEP;
-      rotationSpeed = Math.min(rotationSpeed, MAX_SPEED);
-      updateSpeedDisplay();
+  switch (event.key.toLowerCase()) {
+    case 'w':
+      // Increase target rotation speed
+      targetRotationSpeed += SPEED_STEP;
+      targetRotationSpeed = Math.min(targetRotationSpeed, MAX_SPEED);
       break;
-    case 'ArrowDown':
-      // Decrease rotation speed
-      rotationSpeed -= SPEED_STEP;
-      rotationSpeed = Math.max(rotationSpeed, MIN_SPEED);
-      updateSpeedDisplay();
+    case 's':
+      // Decrease target rotation speed
+      targetRotationSpeed -= SPEED_STEP;
+      targetRotationSpeed = Math.max(targetRotationSpeed, MIN_SPEED);
+      break;
+    case 'a':
+      // Rotate left
+      rotationDirection = -1;
+      break;
+    case 'd':
+      // Rotate right
+      rotationDirection = 1;
       break;
     default:
       break;
   }
 });
 
-// Optional: Create a DOM element to display the current rotation speed
-const speedDisplay = document.createElement('div');
-speedDisplay.style.position = 'fixed';
-speedDisplay.style.top = '20px';
-speedDisplay.style.left = '20px';
-speedDisplay.style.padding = '10px 15px';
-speedDisplay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-speedDisplay.style.color = '#00ffff';
-speedDisplay.style.fontFamily = 'Arial, sans-serif';
-speedDisplay.style.fontSize = '1em';
-speedDisplay.style.borderRadius = '5px';
-speedDisplay.style.zIndex = '10';
-speedDisplay.innerHTML = `Rotation Speed: ${rotationSpeed.toFixed(3)}`;
-document.body.appendChild(speedDisplay);
+// Event listener to stop rotation when keys are released
+window.addEventListener('keyup', (event) => {
+  switch (event.key.toLowerCase()) {
+    case 'a':
+      if (rotationDirection === -1) rotationDirection = 0;
+      break;
+    case 'd':
+      if (rotationDirection === 1) rotationDirection = 0;
+      break;
+    default:
+      break;
+  }
+});
 
-// Function to update the speed display
-function updateSpeedDisplay() {
-  speedDisplay.innerHTML = `Rotation Speed: ${rotationSpeed.toFixed(3)}`;
-}
+
 
 // Animation loop
 const clock = new THREE.Clock();
@@ -138,30 +116,17 @@ const animate = () => {
 
   const elapsed = clock.getElapsedTime();
 
-  // Conditional camera movement based on mouse input
-  if (isMouseDown) {
-    // Calculate target positions based on mouse coordinates
-    const targetX = mouse.x * 10; // Adjust the multiplier for desired effect
-    const targetY = mouse.y * 10;
-
-    // Optional: Clamp the target positions to prevent excessive camera movement
-    const maxOffset = 20; // Maximum camera offset
-    const clampedX = THREE.MathUtils.clamp(targetX, -maxOffset, maxOffset);
-    const clampedY = THREE.MathUtils.clamp(targetY, -maxOffset, maxOffset);
-
-    // Smoothly interpolate camera position towards target
-    camera.position.x += (clampedX - camera.position.x) * 0.05;
-    camera.position.y += (clampedY - camera.position.y) * 0.05;
-    camera.lookAt(scene.position);
-  } else {
-    // Smoothly reset camera position when mouse is not pressed
-    camera.position.x += (-camera.position.x) * 0.05;
-    camera.position.y += (-camera.position.y) * 0.05;
-    camera.lookAt(scene.position);
+  // Smoothly interpolate rotationSpeed towards targetRotationSpeed
+  if (rotationSpeed < targetRotationSpeed) {
+    rotationSpeed += ACCELERATION;
+    rotationSpeed = Math.min(rotationSpeed, targetRotationSpeed);
+  } else if (rotationSpeed > targetRotationSpeed) {
+    rotationSpeed -= ACCELERATION;
+    rotationSpeed = Math.max(rotationSpeed, targetRotationSpeed);
   }
 
-  // Rotate particles based on rotationSpeed
-  particles.rotation.y += rotationSpeed;
+  // Rotate particles based on rotationSpeed and rotationDirection
+  particles.rotation.y += rotationSpeed * rotationDirection;
   particles.rotation.x += rotationSpeed * 0.4; // Slightly different speed for x-axis
 
   renderer.render(scene, camera);

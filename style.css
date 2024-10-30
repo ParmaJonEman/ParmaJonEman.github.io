@@ -10,6 +10,7 @@ body, html {
   height: 100%;
   font-family: 'Arial', sans-serif;
   color: #ffffff;
+ /* background-color: #000; /* Fallback background color */
   overflow: auto; /* Allow page scrolling */
 }
 
@@ -29,9 +30,11 @@ body, html {
   padding: 50px;
   z-index: 1;
   max-width: 900px;
-  margin: 50px auto;
+  margin: 50px auto; /* Adds spacing at the top and bottom */
   background: rgba(0, 0, 0, 0.7);
   border-radius: 10px;
+  /* Removed fixed height to allow content to expand */
+  /* overflow-y: auto; */ /* Optional: Only if you want internal scrolling */
 }
 
 /* Header Styling */
@@ -126,22 +129,88 @@ a:hover {
   border-radius: 4px;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .content {
-    padding: 20px;
-    margin: 20px auto; /* Adjust margin for smaller screens */
+/* Controls Hint Styling */
+.controls-hint {
+  margin-top: 40px;
+  text-align: center;
+  color: #ffffff;
+  font-family: 'Arial', sans-serif;
+}
+
+.controls-hint p {
+  margin-bottom: 20px;
+  font-size: 1.1em;
+}
+
+.controls-hint .keys {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.controls-hint .key-row {
+  display: flex;
+  gap: 20px;
+}
+
+.controls-hint .key {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 2px solid #00ffff;
+  border-radius: 8px;
+  padding: 10px 15px;
+  width: 80px;
+  height: 80px; /* Make it square */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Center the content vertically */
+  transition: transform 0.2s, background-color 0.2s;
+  box-sizing: border-box;
+  animation: pulse 3s infinite;
+}
+
+.controls-hint .key:hover {
+  background-color: rgba(0, 255, 255, 0.2);
+  transform: translateY(-5px);
+}
+
+.controls-hint .key-label {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #00ffff;
+  margin-bottom: 5px;
+}
+
+.controls-hint .key-action {
+  font-size: 0.9em;
+  color: #ffffff;
+}
+
+/* Pulse Animation */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 5px #00ffff;
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px #00ffff;
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 5px #00ffff;
+  }
+}
+
+/* Responsive Design for Controls Hint */
+@media (max-width: 600px) {
+  .controls-hint .keys {
+    gap: 15px;
   }
 
-  header h1 {
-    font-size: 2em;
-  }
-
-  section h2 {
-    font-size: 1.5em;
-  }
-
-  section h3 {
-    font-size: 1.3em;
+  .controls-hint .key {
+    width: 100px;
+    height: 100px;
   }
 }

@@ -22,6 +22,7 @@ body, html {
   width: 100%;
   height: 100%;
   z-index: -1; /* Ensure the canvas stays behind the content */
+  pointer-events: none; /* lets me do click events */
 }
 
 /* Resume Content Container */
@@ -132,9 +133,11 @@ a:hover {
 /* Controls Hint Styling */
 .controls-hint {
   margin-top: 40px;
+  margin-bottom: 20px;
   text-align: center;
   color: #ffffff;
   font-family: 'Arial', sans-serif;
+  z-index: 2;
 }
 
 .controls-hint p {

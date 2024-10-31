@@ -19,6 +19,7 @@ camera.position.z = 50;
 
 // Handle window resize
 window.addEventListener('resize', () => {
+  console.log("resizing listener attached");
   const width = window.innerWidth;
   const height = window.innerHeight;
   renderer.setSize(width, height);
@@ -64,72 +65,142 @@ let rotationDirection = 0; // -1 for left, 1 for right
 
 // Rotation speed acceleration
 let targetRotationSpeed = rotationSpeed; // Desired rotation speed
-const ACCELERATION = 0.0005; // Adjust for desired smoothness
+const ACCELERATION = 0.0005; // make it extra smooth
 
-// Event listener for keyboard controls
+// **Define Functions to Handle Actions**
+
+function increaseSpeed() {
+  targetRotationSpeed += SPEED_STEP;
+  targetRotationSpeed = Math.min(targetRotationSpeed, MAX_SPEED);
+  // Optional: You can add visual feedback here if desired
+}
+
+function decreaseSpeed() {
+  targetRotationSpeed -= SPEED_STEP;
+  targetRotationSpeed = Math.max(targetRotationSpeed, MIN_SPEED);
+  // Optional: You can add visual feedback here if desired
+}
+
+function rotateLeft() {
+  rotationDirection = -1;
+}
+
+function stopRotationLeft() {
+  if (rotationDirection === -1) rotationDirection = 0;
+}
+
+function rotateRight() {
+  rotationDirection = 1;
+}
+
+function stopRotationRight() {
+  if (rotationDirection === 1) rotationDirection = 0;
+}
+
+// **Event Listeners for Keyboard Controls**
+
 window.addEventListener('keydown', (event) => {
-  switch (event.key.toLowerCase()) {
+  const key = event.key.toLowerCase();
+  switch (key) {
     case 'w':
-      // Increase target rotation speed
-      targetRotationSpeed += SPEED_STEP;
-      targetRotationSpeed = Math.min(targetRotationSpeed, MAX_SPEED);
+      increaseSpeed();
       break;
     case 's':
-      // Decrease target rotation speed
-      targetRotationSpeed -= SPEED_STEP;
-      targetRotationSpeed = Math.max(targetRotationSpeed, MIN_SPEED);
+      decreaseSpeed();
       break;
     case 'a':
-      // Rotate left
-      rotationDirection = -1;
+      rotateLeft();
       break;
     case 'd':
-      // Rotate right
-      rotationDirection = 1;
+      rotateRight();
       break;
     default:
       break;
   }
 });
 
-// Event listener to stop rotation when keys are released
 window.addEventListener('keyup', (event) => {
-  switch (event.key.toLowerCase()) {
+  const key = event.key.toLowerCase();
+  switch (key) {
     case 'a':
-      if (rotationDirection === -1) rotationDirection = 0;
+      stopRotationLeft();
       break;
     case 'd':
-      if (rotationDirection === 1) rotationDirection = 0;
+      stopRotationRight();
       break;
     default:
       break;
   }
 });
 
+// **Add Click and Pointer Event Listeners to Control Hints**
+document.addEventListener('DOMContentLoaded', () => {
+  const keys = document.querySelectorAll('.controls-hint .key');
+console.log('Number of keys found:', keys.length);
+  document.querySelectorAll('.controls-hint .key').forEach((keyElement) => {
+    const keyLabel = keyElement.querySelector('.key-label').innerText.trim().toLowerCase();
+    console.log('Attaching events to key:', keyLabel);
+    if (keyLabel === 'w') {
+      // Click to increase speed
+      keyElement.addEventListener('click', () => {
+        increaseSpeed();
+      });
+    } else if (keyLabel === 's') {
+      // Click to decrease speed
+      keyElement.addEventListener('click', () => {
+        decreaseSpeed();
+      });
+    } else if (keyLabel === 'a') {
+      // Pointer down to rotate left
+      keyElement.addEventListener('mousedown', () => {
+        rotateLeft();
+      });
+      // Pointer up and pointer leave to stop rotating left
+      keyElement.addEventListener('mouseup', () => {
+        stopRotationLeft();
+      });
+      keyElement.addEventListener('mouseleave', () => {
+        stopRotationLeft();
+      });
+    } else if (keyLabel === 'd') {
+      // Pointer down to rotate right
+      keyElement.addEventListener('pointerdown', () => {
+        rotateRight();
+      });
+      // Pointer up and pointer leave to stop rotating right
+      keyElement.addEventListener('pointerup', () => {
+        stopRotationRight();
+      });
+      keyElement.addEventListener('pointerleave', () => {
+        stopRotationRight();
+      });
+    }
+  });
+});
+// **Animation Loop**
 
+  const clock = new THREE.Clock();
 
-// Animation loop
-const clock = new THREE.Clock();
+  const animate = () => {
+    requestAnimationFrame(animate);
 
-const animate = () => {
-  requestAnimationFrame(animate);
+    const elapsed = clock.getElapsedTime();
 
-  const elapsed = clock.getElapsedTime();
+    // Smoothly interpolate rotationSpeed towards targetRotationSpeed
+    if (rotationSpeed < targetRotationSpeed) {
+      rotationSpeed += ACCELERATION;
+      rotationSpeed = Math.min(rotationSpeed, targetRotationSpeed);
+    } else if (rotationSpeed > targetRotationSpeed) {
+      rotationSpeed -= ACCELERATION;
+      rotationSpeed = Math.max(rotationSpeed, targetRotationSpeed);
+    }
 
-  // Smoothly interpolate rotationSpeed towards targetRotationSpeed
-  if (rotationSpeed < targetRotationSpeed) {
-    rotationSpeed += ACCELERATION;
-    rotationSpeed = Math.min(rotationSpeed, targetRotationSpeed);
-  } else if (rotationSpeed > targetRotationSpeed) {
-    rotationSpeed -= ACCELERATION;
-    rotationSpeed = Math.max(rotationSpeed, targetRotationSpeed);
-  }
+    // Rotate particles based on rotationSpeed and rotationDirection
+    particles.rotation.y += rotationSpeed * rotationDirection;
+    particles.rotation.x += rotationSpeed * 0.4; // Slightly different speed for x-axis
 
-  // Rotate particles based on rotationSpeed and rotationDirection
-  particles.rotation.y += rotationSpeed * rotationDirection;
-  particles.rotation.x += rotationSpeed * 0.4; // Slightly different speed for x-axis
+    renderer.render(scene, camera);
+  };
 
-  renderer.render(scene, camera);
-};
 
 animate();

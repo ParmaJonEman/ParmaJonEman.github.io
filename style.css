@@ -171,6 +171,10 @@ a:hover {
   transition: transform 0.2s, background-color 0.2s;
   box-sizing: border-box;
   animation: pulse 3s infinite;
+  -webkit-user-select: none; /* Safari and older Chrome */
+  -moz-user-select: none;    /* Firefox */
+  -ms-user-select: none;     /* Internet Explorer and Edge */
+  user-select: none;         /* Standard syntax */
 }
 
 .controls-hint .key:hover {

@@ -152,14 +152,14 @@ console.log('Number of keys found:', keys.length);
       });
     } else if (keyLabel === 'a') {
       // Pointer down to rotate left
-      keyElement.addEventListener('mousedown', () => {
+      keyElement.addEventListener('pointerdown', () => {
         rotateLeft();
       });
       // Pointer up and pointer leave to stop rotating left
-      keyElement.addEventListener('mouseup', () => {
+      keyElement.addEventListener('pointerup', () => {
         stopRotationLeft();
       });
-      keyElement.addEventListener('mouseleave', () => {
+      keyElement.addEventListener('pointerleave', () => {
         stopRotationLeft();
       });
     } else if (keyLabel === 'd') {

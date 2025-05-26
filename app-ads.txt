@@ -1,0 +1,5 @@
+# app-ads.txt file for Freq'n Awesome Tone Generator
+# This file identifies authorized digital sellers for our app's ad inventory
+
+# Google AdMob - Direct relationship
+google.com, pub-5212055529980140, DIRECT, f08c47fec0942fa0

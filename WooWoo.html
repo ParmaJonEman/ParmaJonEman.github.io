@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Freq'n Awesome Tone Generator</title>
+    <title>Woo Woo Frequency Generator</title>
     <style>
         * {
             margin: 0;
@@ -15,7 +15,7 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             line-height: 1.6;
             color: #e0e0e0;
-            background: #0a0a0a;
+            background: #0a0c0b;
             min-height: 100vh;
         }
 
@@ -47,7 +47,7 @@
 
         .download-btn {
             display: inline-block;
-            background: #2a9d8f;
+            background: #9c7bd6;
             color: #fff;
             padding: 12px 28px;
             margin: 0 12px 12px 0;
@@ -59,7 +59,13 @@
         }
 
         .download-btn:hover {
-            background: #238276;
+            background: #855fc4;
+        }
+
+        .download-btn.disabled {
+            background: #2a2438;
+            color: #9c7bd6;
+            cursor: default;
         }
 
         .features {
@@ -88,20 +94,20 @@
         }
 
         .feature-card {
-            background: #111;
+            background: #111311;
             padding: 25px;
             border: 1px solid #222;
             transition: border-color 0.2s ease;
         }
 
         .feature-card:hover {
-            border-color: #2a9d8f;
+            border-color: #9c7bd6;
         }
 
         .feature-icon {
             font-size: 1.3rem;
             margin-bottom: 12px;
-            color: #2a9d8f;
+            color: #9c7bd6;
         }
 
         .feature-card h3 {
@@ -118,7 +124,7 @@
         }
 
         .specs {
-            background: #0d0d0d;
+            background: #0d0f0e;
             padding: 50px 20px;
             border-bottom: 1px solid #222;
         }
@@ -138,9 +144,9 @@
         }
 
         .spec-item {
-            background: #111;
+            background: #111311;
             padding: 20px;
-            border-left: 3px solid #2a9d8f;
+            border-left: 3px solid #9c7bd6;
         }
 
         .spec-label {
@@ -157,64 +163,33 @@
             font-weight: 500;
         }
 
-        .pro-section {
-            background: #0d0d0d;
+        .support-section {
+            background: #0d0f0e;
             padding: 50px 20px;
             border-bottom: 1px solid #222;
         }
 
-        .pro-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 15px;
-        }
-
-        .pro-badge {
-            background: #2a9d8f;
-            color: #fff;
-            padding: 4px 10px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .pro-section h2 {
+        .support-section h2 {
             font-size: 1.8rem;
             color: #fff;
             font-weight: 600;
+            margin-bottom: 15px;
         }
 
-        .pro-section > p {
-            color: #888;
-            margin-bottom: 35px;
-            font-size: 0.95rem;
-        }
-
-        .pro-features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 20px;
-        }
-
-        .pro-feature {
-            background: #111;
-            padding: 22px;
-            border: 1px solid #222;
-        }
-
-        .pro-feature h3 {
-            color: #2a9d8f;
-            margin-bottom: 10px;
-            font-size: 1rem;
-            font-weight: 600;
-        }
-
-        .pro-feature p {
+        .support-section p {
             color: #999;
-            font-size: 0.9rem;
-            line-height: 1.5;
+            font-size: 0.95rem;
+            max-width: 700px;
+            margin-bottom: 12px;
+        }
+
+        .support-section a {
+            color: #9c7bd6;
+            text-decoration: none;
+        }
+
+        .support-section a:hover {
+            text-decoration: underline;
         }
 
         footer {
@@ -244,7 +219,7 @@
         }
 
         .footer-links a:hover {
-            color: #2a9d8f;
+            color: #9c7bd6;
         }
 
         .copyright {
@@ -257,7 +232,7 @@
                 font-size: 1.8rem;
             }
 
-            .features, .pro-section, .specs {
+            .features, .specs, .support-section {
                 padding: 40px 20px;
             }
 
@@ -271,121 +246,96 @@
 <body>
     <div class="container">
         <header>
-            <div class="logo">Freq'n Awesome Tone Generator</div>
-            <div class="tagline">Precision audio testing tool for Android & iOS</div>
-            <a href="https://play.google.com/store/apps/details?id=com.qualhalla.tonegenerator" class="download-btn">Download on Google Play</a>
-            <a href="https://apps.apple.com/us/app/freqn-awesome-tone-generator/id6753634359" class="download-btn">Download on the App Store</a>
+            <div class="logo">Woo Woo Frequency Generator</div>
+            <div class="tagline">Solfeggio tones, binaural beats &amp; bilateral frequencies for iPhone &amp; iPad</div>
+            <a href="https://play.google.com/store/apps/details?id=com.qualhalla.woowoofrequencygenerator" class="download-btn">Get it on Google Play</a>
+            <span class="download-btn disabled">Coming soon to the App Store</span>
         </header>
 
         <section class="features">
-            <h2>Core Features</h2>
+            <h2>Features</h2>
             <p>
-                Signal generator supporting 0-22kHz in 1Hz increments. Built for audio engineers, 
-                equipment testing, and anyone who needs reliable tone generation on mobile.
+                A precision tone studio for meditation, focus, and deep relaxation. Tap the crystal
+                for a preset, or dial in your own frequencies and let the layers wash over you.
             </p>
 
             <div class="feature-grid">
                 <div class="feature-card">
-                    <div class="feature-icon">▲</div>
-                    <h3>Waveform Types</h3>
-                    <p>Sine, square, and sawtooth wave generation with real-time waveform display. Switch between types instantly.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">■</div>
-                    <h3>Frequency Control</h3>
-                    <p>Logarithmic frequency slider for precise tuning across the full audible spectrum. Includes quick-access presets.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">⟿</div>
-                    <h3>Sweep Functions</h3>
-                    <p>Automated frequency sweeps for speaker testing and room analysis. Full range and bass-focused sweep modes.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">♪</div>
-                    <h3>Musical Presets</h3>
-                    <p>Standard musical frequencies for instrument tuning. A440 reference and common note presets included.</p>
+                    <div class="feature-icon">◆</div>
+                    <h3>Solfeggio Presets</h3>
+                    <p>The classic tones from 174 Hz to 963 Hz, ready to load with a single tap on the crystal.</p>
                 </div>
 
                 <div class="feature-card">
                     <div class="feature-icon">◐</div>
-                    <h3>Clean Audio</h3>
-                    <p>Low-latency generation with zero-crossing detection. Smooth fade in/out prevents clicks and pops.</p>
+                    <h3>Binaural Beats</h3>
+                    <p>Theta, alpha, and beta programs designed for focus, calm, and winding down.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">⟷</div>
+                    <h3>Bilateral Tones</h3>
+                    <p>Gentle left/right movement over a steady carrier for a spacious, immersive feel.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">≡</div>
+                    <h3>Layered Soundscapes</h3>
+                    <p>Stack multiple tones and mix each one to taste to build your own custom soundscape.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">∿</div>
+                    <h3>Waveforms</h3>
+                    <p>Six waveforms — sine, Om, Ah, square, saw, and triangle — in mono or true stereo (L/R).</p>
                 </div>
 
                 <div class="feature-card">
                     <div class="feature-icon">●</div>
-                    <h3>Mobile Native</h3>
-                    <p>Built specifically for mobile with haptic feedback, orientation lock, and background playback support.</p>
+                    <h3>Record &amp; Share</h3>
+                    <p>Capture your soundscape to a file and share it anywhere. Includes a session timer and background playback.</p>
                 </div>
             </div>
         </section>
 
         <section class="specs">
-            <h2>Technical Specs</h2>
-            
+            <h2>At a Glance</h2>
+
             <div class="specs-grid">
                 <div class="spec-item">
-                    <div class="spec-label">Frequency Range</div>
-                    <div class="spec-value">0 Hz - 22 kHz</div>
+                    <div class="spec-label">Platform</div>
+                    <div class="spec-value">iPhone &amp; iPad</div>
                 </div>
 
                 <div class="spec-item">
-                    <div class="spec-label">Waveforms</div>
-                    <div class="spec-value">Sine, Square, Sawtooth</div>
+                    <div class="spec-label">Presets</div>
+                    <div class="spec-value">Solfeggio, Binaural, Bilateral</div>
                 </div>
 
                 <div class="spec-item">
-                    <div class="spec-label">Sample Rate</div>
-                    <div class="spec-value">44.1 kHz / 48 kHz</div>
+                    <div class="spec-label">Privacy</div>
+                    <div class="spec-value">Offline · No ads · No tracking</div>
                 </div>
             </div>
         </section>
 
-        <section class="pro-section">
-            <div class="pro-header">
-                <h2>Professional Mode</h2>
-                <span class="pro-badge">PRO</span>
-            </div>
+        <section class="support-section">
+            <h2>Support</h2>
             <p>
-                Advanced functionality for professional audio work. One-time purchase, no subscriptions.
+                Questions, feedback, or need a hand? Email
+                <a href="mailto:jon.eman184@gmail.com">jon.eman184@gmail.com</a>
+                and I'll get back to you.
             </p>
-
-            <div class="pro-features">
-                <div class="pro-feature">
-                    <h3>Dual Tone Generator</h3>
-                    <p>Two independent signal generators for beat frequency testing and complex audio analysis work.</p>
-                </div>
-
-                <div class="pro-feature">
-                    <h3>Musical Keyboard</h3>
-                    <p>Full chromatic keyboard with octave selection. Precise note generation across multiple octaves.</p>
-                </div>
-
-                <div class="pro-feature">
-                    <h3>WAV Recording</h3>
-                    <p>Record generated tones directly to WAV format. Capture single or dual tones for offline analysis and archival.</p>
-                </div>
-
-                <div class="pro-feature">
-                    <h3>Phase Control</h3>
-                    <p>Independent phase inversion for each channel. Essential for phase testing and null experiments.</p>
-                </div>
-
-                <div class="pro-feature">
-                    <h3>No Advertisements</h3>
-                    <p>Ad-free experience for uninterrupted workflow. Support ongoing development directly.</p>
-                </div>
-            </div>
+            <p>
+                Read the <a href="https://parmajoneman.github.io/WooWooPrivacyPolicy/" target="_blank">Privacy Policy</a>.
+            </p>
         </section>
 
         <footer>
             <div class="footer-content">
-                <div class="copyright">© 2025 Jon Eman</div>
+                <div class="copyright">© 2026 Jon Eman · Qualhalla</div>
                 <div class="footer-links">
-                    <a href="https://parmajoneman.github.io/PrivacyPolicy/" target="_blank">Privacy</a>
+                    <a href="https://parmajoneman.github.io/WooWooPrivacyPolicy/" target="_blank">Privacy</a>
                     <a href="mailto:jon.eman184@gmail.com">Support</a>
                 </div>
             </div>
